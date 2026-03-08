@@ -12,7 +12,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from loguru import logger
 
-from backend.utils.config import API_HOST, API_PORT, CORS_ORIGINS
+import os
+from backend.utils.config import API_HOST, CORS_ORIGINS
+# Get API_PORT from env, fallback to config default, or fallback to 7860 (Hugging Face default)
+from backend.utils.config import API_PORT as CONFIG_API_PORT
+API_PORT = int(os.environ.get("PORT", os.environ.get("API_PORT", 7860)))
 from backend.api.routes import router
 
 
