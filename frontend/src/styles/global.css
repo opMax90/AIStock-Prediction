@@ -87,6 +87,39 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  position: relative;
+  z-index: 0;
+}
+
+body::before, body::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 50%;
+}
+
+body::before {
+  top: -10vw;
+  left: -5vw;
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 60%);
+  animation: floatBg 15s infinite alternate ease-in-out;
+}
+
+body::after {
+  bottom: -10vw;
+  right: -5vw;
+  width: 40vw;
+  height: 40vw;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, transparent 60%);
+  animation: floatBg 12s infinite alternate-reverse ease-in-out;
+}
+
+@keyframes floatBg {
+  0% { transform: translateY(0) scale(1); }
+  100% { transform: translateY(30px) scale(1.1); }
 }
 
 /* ── Scrollbar ─────────────────────────────────────────────────────── */
@@ -247,12 +280,20 @@ body {
 
 /* ── Dashboard Grid ────────────────────────────────────────────────── */
 .dashboard {
-  padding: 16px;
+  padding: 24px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
-  gap: 16px;
+  grid-auto-rows: min-content;
+  gap: 24px;
   flex: 1;
+  max-width: 1600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Make Market Panel span both columns to fix empty space */
+.dashboard > :nth-child(1) {
+  grid-column: 1 / -1;
 }
 
 @media (max-width: 1200px) {
@@ -263,16 +304,19 @@ body {
 
 /* ── Card ──────────────────────────────────────────────────────────── */
 .card {
-  background: var(--gradient-card);
-  border: 1px solid var(--border-primary);
-  border-radius: var(--radius-lg);
+  background: rgba(21, 28, 44, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-xl);
   overflow: hidden;
   transition: all var(--transition-normal);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 .card:hover {
-  border-color: var(--border-accent);
-  box-shadow: var(--shadow-card);
+  border-color: rgba(59, 130, 246, 0.4);
+  box-shadow: 0 12px 40px rgba(59, 130, 246, 0.15);
+  transform: translateY(-2px);
 }
 
 .card-header {

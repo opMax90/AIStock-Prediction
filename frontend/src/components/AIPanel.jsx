@@ -75,26 +75,6 @@ function SignalIndicator({ prediction }) {
     );
 }
 
-function ConfidenceScore({ confidence }) {
-    const pct = (confidence || 0) * 100;
-    const level = pct > 70 ? 'high' : pct > 40 ? 'medium' : 'low';
-
-    return (
-        <div className="stat-item">
-            <div className="stat-label">Model Confidence</div>
-            <div className={`stat-value ${level === 'high' ? 'positive' : level === 'low' ? 'negative' : ''}`}>
-                {pct.toFixed(1)}%
-            </div>
-            <div className="confidence-bar">
-                <div
-                    className={`confidence-bar-fill ${level}`}
-                    style={{ width: `${pct}%` }}
-                ></div>
-            </div>
-        </div>
-    );
-}
-
 function FeatureImportance({ features }) {
     if (!features?.feature_importance) return null;
 
@@ -134,11 +114,6 @@ export default function AIPanel({ data }) {
                     <span className="card-title-icon" style={{ background: '#8b5cf6' }}></span>
                     AI Analysis
                 </div>
-                {prediction && (
-                    <span className={`badge ${prediction.direction_prob > 0.5 ? 'badge-bullish' : 'badge-bearish'}`}>
-                        {prediction.confidence > 0.6 ? 'HIGH CONF' : prediction.confidence > 0.4 ? 'MED CONF' : 'LOW CONF'}
-                    </span>
-                )}
             </div>
             <div className="card-body">
                 {!data ? (
@@ -150,9 +125,8 @@ export default function AIPanel({ data }) {
                 ) : (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
                         {/* Signal + Sentiment Row */}
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 12 }}>
                             <SignalIndicator prediction={prediction} />
-                            <ConfidenceScore confidence={prediction?.confidence} />
                         </div>
 
                         {/* Sentiment Gauge */}

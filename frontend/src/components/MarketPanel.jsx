@@ -187,10 +187,6 @@ export default function MarketPanel({ data, prediction }) {
                                     {(pred.direction_prob * 100)?.toFixed(1)}%
                                 </div>
                             </div>
-                            <div className="stat-item">
-                                <div className="stat-label">Confidence</div>
-                                <div className="stat-value">{(pred.confidence * 100)?.toFixed(1)}%</div>
-                            </div>
                         </>
                     )}
                 </div>

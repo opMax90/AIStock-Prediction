@@ -8,6 +8,7 @@ import MarketPanel from './components/MarketPanel';
 import AIPanel from './components/AIPanel';
 import RiskPanel from './components/RiskPanel';
 import PortfolioPanel from './components/PortfolioPanel';
+import BacktestPanel from './components/BacktestPanel';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -75,7 +76,6 @@ export default function App() {
                     <MarketPanel data={data} prediction={data} />
                     <AIPanel data={data} />
                     <RiskPanel data={data} ticker={data?.ticker || ticker} />
-                    <PortfolioPanel />
                 </ErrorBoundary>
             </main>
 
